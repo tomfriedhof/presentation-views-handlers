@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+		<title>Writing Views Handlers - ActiveLAMP Drupal Agency</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -15,7 +15,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -34,345 +35,352 @@
 		<![endif]-->
 	</head>
 
-	<body>
+	<body style="background-image: url(img/presentation-bg2.svg); background-size: cover">
 
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
+					<h1 class="title-slide">Writing Views Handlers</h1>
 					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+						<small>Presented by <a href="http://twitter.com/tomfriedhof ">Tom Friedhof</a> </small>
 					</p>
+					<aside class="notes">
+						Hello everyone, thanks for coming today to my session on extending Views module.
+					</aside>
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
+					<h1 style="text-align: left ">Tom Friedhof</h1>
+					<div style="width: 25%; float: left;">
+						<img src="img/tom-friedhof.jpg" class="no-border" />
+					</div>
+					<div style="width: 75%; float: left;">
+						<ul>
+							<li>Senior Software Engineer at <a href="http://activelamp.com">ActiveLAMP</a></li>
+							<li><a href="http://twitter.com/tomfriedhof">@tomfriedhof</a></li>
+							<li><a href="http://twitter.com/activelamp">@activelamp</a></li>
+						</ul>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>we are a Los Angeles based Digital Agency,   </li>
+							<li>Drupal is our platform of choice.</li>
+							<li>Our agency has been working on the Drupal platform now for about a decade.  We've been part of the community for a while.</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Subscribe to our YouTube Channel</h2>
+					<p>http://youtube.com/activelamp</p>
+					<img src="img/activelamp-youtube.jpg" class="no-border" style="width: 65%"/>
+
+					<aside class="notes">
+						<ul>
+							<li>Go to our YouTube channel right now and subscribe</li>
+							<li>Now go to all your social feeds and tell everyone to subscribe (just kidding) kind of.</li>
+							<li>We are going to be publishing the 3 sessions that I'm giving this week on our channel</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>I won't be talking about how to use Views today.</h2>
+					<aside class="notes">
+						- This session is an intermediate level session, I won't be talking about how to use Views.  I'm assuming that everyone in this room has used the Views module at some level.
+					</aside>
+				</section>
+
+				<section>
+					<h2>What I'll be covering today</h2>
+					<ul>
+						<li>How to extend Views with Handlers.</li>
+						<li>We are going to look at code.</li>
+					</ul>
+
+					<aside class="notes">
+						<ul>
+							<li>What I'm going to be talking about today is how to extend views to do exactly what you want.  In this session I'll dig into how to do this.  Yes, we're going to look at code.  This will be a tutorial style session.</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Encapsulation, Inheritance and Polymorphism using Drupal Entities</h2>
+					<p class="fragment">Go check it out on our YouTube channel (when it's released).</p>
+
+					<aside class="notes">
+						<ul>
+							<li>How many people here went to my last session?</li>
+							<li>One of the core concepts that I talked about was "Inheritance".</li>
+							<li>Views is one of the few sub systems in Drupal 7 that is Object Oriented and uses Ineritance quite a bit for writing handlers, as you'll see.</li>
+						</ul>
+					</aside>
 				</section>
 
 				<!-- Example of nested vertical slides -->
 				<section>
 					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
+						<h1>Lets code a module</h1>
 					</section>
 					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+						<h2>mymodule.info</h2>
+						<pre><code data-trim contenteditable>
+name = My Cool Module
+description = Provides an area handler for views
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
+core = 7.x
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
-
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-						```
-						<section data-markdown>
-						  ## Markdown support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
-
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
-
+dependencies[] = views
+dependencies[] = xautoload (>= 7.x-5.0)
+						</code></pre>
+						<h2>mymodule.module</h2>
+						<pre><code data-trim contenteditable>
+/**
+ * Implements hook_views_api().
+ */
+function mymodule_views_api() {
+  return [
+    'api' => 3
+  ];
+}
+						</code></pre>
 						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
+							<ul>
+								<li>Create two files in here to make this a module that we can enable... the .info file and the .module file.</li>
+								<li>Views basically needs to know what version of the API we're using.</li>
+								<li>Views will now look for a file in our module called modulename.views.inc</li>
+								<li>create that file modulename.views.inc</li>
+							</ul>
 						</aside>
 					</section>
 					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
-
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
-
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
-
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
-
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
+						<h2>mymodule.views.inc</h2>
+						<pre><code data-trim contenteditable>
+/**
+ * Implements hook_views_data().
+ */
+function mymodule_views_data() {
+  return [
+    'views' => [
+      'mymodule_area' => [
+        'title' => t('My Custom Area'),
+        'help' => t('Adds a custom area handler.'),
+        'area' => [
+          'handler' => 'Drupal\mymodule\Views\Handlers\Area\MyCoolHandler'
+        ]
+      ]
+    ]
+  ];
 }
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+						</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Views will load this file before it tries to invoke any hooks that it defines, so this is a good place to put your hook_views_data hook.</li>
+								<li>This hook basically registers any new data that views should know about.</li>
+								<li>So if your module defines a whole new table in the database, you could use this hook to tell views about that table and how to access data from it.</li>
+								<li>Now if you're creating new database tables that you want Views to know about, then that table should probably be an Entity, so that you get the API's surrounding Entities when working with that data.</li>
+								<li>And if you use the Entity API module when creating that Entity, you get the Views integration for free, you don't have to define a hook_views_data for that custom table.</li>
+								<li>Keep in mind that Entities don't have to fieldable, and you don't have to provide a UI for your entities, but in my opinion I can't think of a good reason to not make custom tables that you add to the Drupal database not an Entity, if not simply for the CRUD operations.</li>
+								<li>We are defining an Area Handler here</li>
+								<li>Point out the PSR4 - and explain</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Checkout our video on PSR4</h2>
+						<img src="img/PSR.png" class="no-border"  />
+					</section>
+					<section>
+						<h2>Directory structure follows naming convention</h2>
+						<em style="font-size: 1.8em" class="fragment">mymodule/src/Views/Handlers/Area</em>
+						<aside class="notes">
+							<ul>
+								<li>Basically, the way this works is it's going to look for the MyCoolHandler class in this directory structure...</li>
+								<li>Lets go create our directory structure for this handler, and the actual class</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<em>MyCoolHandler.php</em>
+						<pre><code data-trim contenteditable>
+namespace Drupal\mymodule\Views\Handlers\Area;
+
+/**
+ * Defines a new handler class for views.
+ */
+class MyCoolHandler {
+
+}
+						</code></pre>
+						<aside class="notes">
+							<li>Make sure you have that namespace defined, that's really important.</li>
+							<li>So at this point we should have a handler that can be used within Drupal, however it does absolutely nothing.</li>
+							<li>One thing that we want to do to this handler is have it extend functionality that already exists in Views.</li>
+							<li>Views has base classes for everything.  Since we're writing an area handler, lets extend the base class for area handlers.</li>
+							<li>Turn on the module and demo it.</li>
+						</aside>
+					</section>
 				</section>
 
 				<section>
-					<h2>Marvelous List</h2>
+					<h2>That's how you write every type of handler in Views</h2>
+				</section>
+
+				<section>
+					<section>
+						<h1>Time to write a custom field.</h1>
+						<p class="fragment">We're going to create a psuedo field</p>
+						<aside class="notes">
+							<ul>
+								<li>Like I said earlier, if you setup new tables using the Entity API module, you won't need define every column</li>
+								<li>I'm going to create a pseudo field on the node table to show you how to define it yourself.</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<em>hook_views_data()</em>
+						<pre><code data-trim contenteditable>
+'node' => [
+  'my_custom_field' => [
+    'title' => t('My Custom Field'),
+    'help' => t('Showing how to write fields at SandCamp'),
+    'real field' => 'created',
+    'field' => [
+      'handler' => 'Drupal\mymodule\Views\Handlers\Field\MyCustomField'
+    ],
+    'filter' => [
+      'handler' => 'Drupal\mymodule\Views\Handlers\Filter\MyCustomFilter'
+    ]
+  ],
+]
+						</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>You can see that I specified a field called my_custom_field, which doesn't exist on the node table, so that would immediately give me an SQL error, so I specified the 'real field' key to set what actual column I want to query.  Now the SQL won't fail.</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section>
+						<em>mymodule/src/Views/Handlers/Field/MyCustomField.php</em>
+						<pre><code data-trim contenteditable>
+namespace Drupal\mymodule\Views\Handlers\Field;
+
+class MyCustomField extends \views_handler_field {
+
+  function render($values) {
+    $value = $this->get_value($values);
+    return date('Y-m-d', $value);
+  }
+
+}
+						</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Lets change how the field is rendered.  Lets go in the handler that we defined and override the render method.</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Custom Filter</h1>
+					</section>
+
+					<section>
+						<em>mymodule/src/Views/Handlers/MyCustomFilter.php</em>
+						<pre><code data-trim contenteditable>
+function option_definition() {
+  $options = parent::option_definition();
+
+  $options['even_odd'] = array('default' => 'odd');
+
+  return $options;
+}
+
+function options_form(&$form, &$form_state) {
+  $form['even_odd'] = [
+    '#type' => 'radios',
+    '#title' => t('Even or Odd'),
+    '#default_value' => $this->options['even_odd'],
+    '#options' => ['odd' => t('Only odd numbers'), 'even' => t('Just even numbers')],
+    '#description' => t('Demonstrating how to create your own options form')
+  ];
+
+  parent::options_form($form, $form_state);
+}
+
+function admin_summary() {
+  return $this->options['even_odd'] == 'even' ? t('Just even numbers') : t('Just odd numbers');
+}
+						</code></pre>
+						<aside class="notes">
+							Lets add a custom filter now for this field.  Lets customize how we configure this filter by overriding the options_form method so that we can pull only nodes that were created with an odd numbered timestamp or even numbered time stamp
+						</aside>
+					</section>
+
+					<section>
+						<h2>Change the query</h2>
+						<em>mymodule/src/Views/Handlers/MyCustomFilter.php</em>
+
+						<pre><code data-trim contenteditable>
+function query() {
+  $this->ensure_my_table();
+  $operator = $this->options['even_odd'] == 'even' ? '=' : '>';
+  $this->query->add_where_expression($this->options['group'], "($this->table_alias.$this->real_field % 2) $operator 0");
+}
+						</code></pre>
+						<aside class="notes">
+							<li>Now this is the power of where extending views really shows, we now need to modify the query that views executes so that we can get only nodes with even or odd time stamps.</li>
+							<li>All we have to do is define what the query looks like for this field by implementing the query method</li>
+							<li>There is no way, to my knowledge, of doing that within Views natively.  We just did that super easily and with very little code.</li>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h2>Other handlers you can extend</h2>
 					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
+						<li class="fragment">views_sort_handlers</li>
+						<li class="fragment">views_argument_handlers</li>
+						<li class="fragment">views_relationship_handlers</li>
 					</ul>
-				</section>
-
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
 					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+						<ul>
+							<li>So that's how you can extend Views writing your own handlers. There are several other handlers that you can write that I'm not going to cover today.  You do it pretty much the same way for each type of handler.  Extend an already existing handler within views, and override just the methods that you need to, to customize for your needs.</li>
+						</ul>
 					</aside>
 				</section>
 
 				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+					<h2>Subscribe to our YouTube Channel</h2>
+					<p>http://youtube.com/activelamp</p>
+					<img src="img/activelamp-youtube.jpg" class="no-border" style="width: 65%"/>
+
+					<aside class="notes">
+						<ul>
+							<li>Thanks for coming to this session</li>
+							<li>Please go to our YouTube channel and subscribe, and share our channel.  We're going to be releasing this session as well as other great content over there.</li>
+						</ul>
+					</aside>
 				</section>
 
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
-
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
+				<section style="text-align: left;"  data-background-video="img/Website-Loop.mov" data-background-video-loop>
+					<div style="width: 60%; float: left">
+						<h1>Questions?</h1>
+						<p>Send me an email:</p>
+						<em>tom@activelamp.com</em>
+						<br /><br />
+						<em>or in IRC #drupal-la</em>
+					</div>
+					<div style="width: 40%; float: left">
+						<img src="img/activelamp_square_logo.png" style="border: none; box-shadow: none" />
+					</div>
 				</section>
 
 			</div>
